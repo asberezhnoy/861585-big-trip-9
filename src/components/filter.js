@@ -1,20 +1,30 @@
-const createFilterTemplate = () => `            <form class="trip-filters" action="#" method="get">
-<div class="trip-filters__filter">
-  <input id="filter-everything" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="everything" checked>
-  <label class="trip-filters__filter-label" for="filter-everything">Everything</label>
-</div>
+function FilterItem(id, text, isChecked = false) {
+  this.getId = function () {
+    return id;
+  };
 
-<div class="trip-filters__filter">
-  <input id="filter-future" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="future">
-  <label class="trip-filters__filter-label" for="filter-future">Future</label>
-</div>
+  this.getText = function () {
+    return text;
+  };
 
-<div class="trip-filters__filter">
-  <input id="filter-past" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="past">
-  <label class="trip-filters__filter-label" for="filter-past">Past</label>
-</div>
+  this.isChecked = function () {
+    return isChecked;
+  };
+}
+
+function Filter(items) {
+  this.items = items;
+}
+
+const createFilterTemplate = (filter) => `<form class="trip-filters" action="#" method="get">
+${filter.items.map((item) => {
+    return `<div class="trip-filters__filter">
+<input id="filter-${item.getId()}" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="${item.getId()}" ${item.isChecked() ? `checked` : ``} >
+<label class="trip-filters__filter-label" for="filter-${item.getId()}">${item.getText()}</label>
+</div>`;
+  }).join(``)}
 
 <button class="visually-hidden" type="submit">Accept filter</button>
 </form>`;
 
-export {createFilterTemplate};
+export {createFilterTemplate, FilterItem, Filter as default};
