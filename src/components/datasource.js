@@ -1,5 +1,9 @@
-import Trip, {TripPoint, Destination, Picture} from './trip';
-import {AvailableTripPointTypes, AvailableOffers, AvailableSentences, AvaliableDestinationPoints} from './common';
+import {AvailableOffers} from './offer';
+import Picture from './picture';
+import Destination from './destination';
+import TripPoint from './trip-point';
+import Trip from './trip';
+import {AvailableTripPointTypes, AvailableSentences, AvaliableDestinationPoints} from './common';
 
 const TRIPPOINT_MAXCOUNT = 5;
 const TRIPPOINT_DESTINATION_MAXPICTURES = 5;
