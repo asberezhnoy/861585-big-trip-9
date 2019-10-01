@@ -4,6 +4,10 @@ class TripSorter {
   constructor() {
     let _element = null;
 
+    this.removeElelment = function () {
+      _element = null;
+    };
+
     this.getElement = function () {
       return _element ? _element : (_element = createElement(this.getTemplate()).firstChild);
     };

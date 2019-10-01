@@ -24,6 +24,10 @@ class TripInfo {
       return trip.points[index];
     };
 
+    this.removeElelment = function () {
+      _element = null;
+    };
+
     this.getElement = function () {
       return _element ? _element : (_element = createElement(this.getTemplate()).firstChild);
     };

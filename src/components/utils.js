@@ -18,4 +18,9 @@ const createElement = (html) => {
   return template.content;
 };
 
-export {TimeStamp, createElement};
+const remove = (obj) => {
+  obj.getElement().remove();
+  obj.removeElement();
+};
+
+export {TimeStamp, createElement, remove};

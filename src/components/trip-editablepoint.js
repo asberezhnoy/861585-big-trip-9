@@ -1,17 +1,24 @@
 import {AvailableOffers} from './offer';
 import {TimeStamp, createElement} from './utils';
 
+const KEYCODES_ESCAPE = 27;
+
 class EditableTripPoint {
   constructor(point) {
     let _element = null;
+
+    this.removeElelment = function () {
+      _element = null;
+    };
 
     this.getElement = function () {
       if (_element === null) {
         _element = createElement(this.getTemplate()).firstChild;
 
         _element.querySelector(`.event--edit`).addEventListener(`submit`, () => {
-          _element.parentNode.replaceChild(point.getElement(), _element);
+          close();
         });
+        document.addEventListener(`keydown`, onDocumentKeyDown);
       }
       return _element;
     };
@@ -171,6 +178,17 @@ class EditableTripPoint {
         </form>
       </li>`;
     };
+
+    function onDocumentKeyDown(evt) {
+      if (evt.keyCode === KEYCODES_ESCAPE) {
+        document.removeEventListener(`keydown`, onDocumentKeyDown);
+        close();
+      }
+    }
+
+    function close() {
+      _element.parentNode.replaceChild(point.getElement(), _element);
+    }
   }
 }
 

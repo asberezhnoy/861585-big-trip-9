@@ -10,6 +10,10 @@ class TripPoint {
     this.offers = new Set();
     let _element = null;
 
+    this.removeElelment = function () {
+      _element = null;
+    };
+
     this.getElement = function () {
       if (_element === null) {
         _element = createElement(this.getTemplate()).firstChild;
