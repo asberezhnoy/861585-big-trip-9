@@ -11,10 +11,11 @@ const TRIPPOINT_OFFERS_MAXCOUNT = 2;
 
 const getMockTrip = () => {
   const trip = new Trip();
+  const count = Math.floor(Math.random() * TRIPPOINT_MAXCOUNT);
 
   let startDt = Date.now();
 
-  for (let i = 0; i < TRIPPOINT_MAXCOUNT; i++) {
+  for (let i = 0; i < count; i++) {
     const point = createTripPoint(startDt);
     trip.points.push(point);
 

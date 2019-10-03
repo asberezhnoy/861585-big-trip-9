@@ -5,6 +5,10 @@ class Trip {
     this.points = [];
     let _element = null;
 
+    this.removeElelment = function () {
+      _element = null;
+    };
+
     this.getElement = function () {
       if (_element === null) {
         _element = createElement(`<ul class="trip-days"/>`).firstChild;
