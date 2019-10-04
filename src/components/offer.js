@@ -1,8 +1,8 @@
-import {createElement} from "./utils";
+import AbstractComponent from './AbstractComponent';
 
-class Offer {
+class Offer extends AbstractComponent {
   constructor(name, title, price) {
-    let _element = null;
+    super();
 
     this.getName = function () {
       return name;
@@ -16,15 +16,11 @@ class Offer {
       return price;
     };
 
-    this.getElement = function () {
-      return _element ? _element : (_element = createElement(this.getTemplate()).firstChild);
-    };
-
     this.getTemplate = function () {
       return `<li class="event__offer">
-      <span class="event__offer-title">${this.getTitle()}</span>
+      <span class="event__offer-title">${title}</span>
       &plus;
-      &euro;&nbsp;<span class="event__offer-price">${this.getPrice()}</span>
+      &euro;&nbsp;<span class="event__offer-price">${price}</span>
    </li>`;
     };
   }

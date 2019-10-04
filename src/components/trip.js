@@ -1,23 +1,21 @@
 import {TimeStamp, createElement} from './utils';
+import AbstractComponent from './AbstractComponent';
 
-class Trip {
+class Trip extends AbstractComponent {
   constructor() {
-    this.points = [];
-    let _element = null;
+    super();
 
-    this.removeElelment = function () {
-      _element = null;
-    };
+    this.points = [];
 
     this.getElement = function () {
-      if (_element === null) {
-        _element = createElement(`<ul class="trip-days"/>`).firstChild;
+      if (this._element === null) {
+        this._element = createElement(`<ul class="trip-days"/>`).firstChild;
         const groups = groupTripPointsByDay(this.points);
         groups.forEach((points, index) => {
-          _element.append(createDayTemplate(index + 1, points));
+          this._element.append(createDayTemplate(index + 1, points));
         });
       }
-      return _element;
+      return this._element;
     };
 
     this.getTemplate = function () {

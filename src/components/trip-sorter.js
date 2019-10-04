@@ -1,16 +1,8 @@
-import {createElement} from './utils';
+import AbstractComponent from './AbstractComponent';
 
-class TripSorter {
+class TripSorter extends AbstractComponent {
   constructor() {
-    let _element = null;
-
-    this.removeElelment = function () {
-      _element = null;
-    };
-
-    this.getElement = function () {
-      return _element ? _element : (_element = createElement(this.getTemplate()).firstChild);
-    };
+    super();
 
     this.getTemplate = function () {
       return `<form class="trip-events__trip-sort  trip-sort" action="#" method="get">

@@ -1,22 +1,16 @@
-import {TimeStamp, createElement} from './utils';
+import {TimeStamp} from './utils';
 import {AvaliableDestinationPoints} from './common';
+import AbstractComponent from './AbstractComponent';
 
-class FirstTripPoint {
+class FirstTripPoint extends AbstractComponent {
   constructor(type, destination) {
+    super();
+
     this.destination = destination;
     this.startDt = null;
     this.finishDt = null;
     this.price = 0;
     this.offers = new Set();
-    let _element = null;
-
-    this.removeElelment = function () {
-      _element = null;
-    };
-
-    this.getElement = function () {
-      return _element ? _element : (_element = createElement(this.getTemplate()));
-    };
 
     this.getType = function () {
       return type;

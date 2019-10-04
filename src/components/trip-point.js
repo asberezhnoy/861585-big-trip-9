@@ -1,33 +1,31 @@
 import {TimeStamp, createElement} from './utils';
 import EditableTripPoint from './trip-editablepoint';
+import AbstractComponent from './AbstractComponent';
 
-class TripPoint {
+class TripPoint extends AbstractComponent {
   constructor(type, destination) {
+    super();
+
     this.destination = destination;
     this.startDt = null;
     this.finishDt = null;
     this.price = 0;
     this.offers = new Set();
-    let _element = null;
-
-    this.removeElelment = function () {
-      _element = null;
-    };
-
-    this.getElement = function () {
-      if (_element === null) {
-        _element = createElement(this.getTemplate()).firstChild;
-
-        _element.querySelector(`.event__rollup-btn`).addEventListener(`click`, () => {
-          const editCard = new EditableTripPoint(this);
-          _element.parentNode.replaceChild(editCard.getElement(), _element);
-        });
-      }
-      return _element;
-    };
 
     this.getType = function () {
       return type;
+    };
+
+    this.getElement = function () {
+      if (this._element === null) {
+        this._element = createElement(this.getTemplate()).firstChild;
+
+        this._element.querySelector(`.event__rollup-btn`).addEventListener(`click`, () => {
+          const editCard = new EditableTripPoint(this);
+          this._element.parentNode.replaceChild(editCard.getElement(), this._element);
+        });
+      }
+      return this._element;
     };
 
     this.getTemplate = function () {
