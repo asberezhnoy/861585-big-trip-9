@@ -1,26 +1,25 @@
 import {AvailableOffers} from './offer';
 import {TimeStamp, createElement} from './utils';
+import AbstractComponent from './AbstractComponent';
 
 const KEYCODES_ESCAPE = 27;
 
-class EditableTripPoint {
+class EditableTripPoint extends AbstractComponent {
   constructor(point) {
-    let _element = null;
+    super();
 
-    this.removeElelment = function () {
-      _element = null;
-    };
+    const _self = this;
 
     this.getElement = function () {
-      if (_element === null) {
-        _element = createElement(this.getTemplate()).firstChild;
+      if (this._element === null) {
+        this._element = createElement(this.getTemplate()).firstChild;
 
-        _element.querySelector(`.event--edit`).addEventListener(`submit`, () => {
+        this._element.querySelector(`.event--edit`).addEventListener(`submit`, () => {
           close();
         });
         document.addEventListener(`keydown`, onDocumentKeyDown);
       }
-      return _element;
+      return this._element;
     };
 
     this.getTemplate = function () {
@@ -187,7 +186,7 @@ class EditableTripPoint {
     }
 
     function close() {
-      _element.parentNode.replaceChild(point.getElement(), _element);
+      _self._element.parentNode.replaceChild(point.getElement(), _self._element);
     }
   }
 }

@@ -1,13 +1,8 @@
-import {createElement} from './utils';
+import AbstractComponent from './AbstractComponent';
 
-class MenuItem {
-  constructor(title) {
-    let _active = false;
-    let _element = null;
-
-    this.getTitle = function () {
-      return title;
-    };
+class MenuItem extends AbstractComponent {
+  constructor(title, active = false) {
+    super();
 
     this.setActive = function (value) {
       if (typeof (value) !== `boolean`) {
@@ -16,52 +11,26 @@ class MenuItem {
 
       const element = this.getElement();
       element.classList.toggle(`trip-tabs__btn--active`, value);
-
-      _active = value;
-    };
-
-    this.isActive = function () {
-      return _active;
-    };
-
-    this.getElement = function () {
-      return _element || (_element = createElement(this.getTemplate()).firstChild);
-    };
-
-    this.removeElelement = function () {
-      _element = null;
     };
 
     this.getTemplate = function () {
-      return `<a class="trip-tabs__btn  ${this.isActive() ? `trip-tabs__btn--active` : ``} " href="#">${this.getTitle()}</a>`;
+      return `<a class="trip-tabs__btn  ${active ? `trip-tabs__btn--active` : ``} " href="#">${title}</a>`;
     };
   }
 }
 
-class Menu {
+class Menu extends AbstractComponent {
   constructor() {
-    let _element = null;
+    super();
+
     const _items = [
-      new MenuItem(`Table`),
+      new MenuItem(`Table`, true),
       new MenuItem(`Stats`)];
 
-    _items[0].setActive(true);
-
     this.getTemplate = function () {
-      return _items.map((item) => item.getTemplate()).join(``);
-    };
-
-    this.getElement = function () {
-      if (_element === null) {
-        _element = createElement(`<nav class="trip-controls__trip-tabs  trip-tabs"/>`).firstChild;
-
-        _items.map((item) => _element.append(item.getElement()));
-      }
-      return _element;
-    };
-
-    this.removeElelement = function () {
-      _element = null;
+      return `<nav class="trip-controls__trip-tabs  trip-tabs">
+      ${_items.map((item) => item.getTemplate()).join(``)}
+      </nav>`;
     };
   }
 }

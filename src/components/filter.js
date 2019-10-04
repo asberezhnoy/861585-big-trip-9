@@ -1,17 +1,8 @@
-import {createElement} from './utils';
+import AbstractComponent from './AbstractComponent';
 
-class FilterItem {
-  constructor(name, title) {
-    let _checked = false;
-    let _element = null;
-
-    this.getName = function () {
-      return name;
-    };
-
-    this.getTitle = function () {
-      return title;
-    };
+class FilterItem extends AbstractComponent {
+  constructor(name, title, checked = false) {
+    super();
 
     this.setChecked = function (value) {
       if (typeof (value) !== `boolean`) {
@@ -25,57 +16,30 @@ class FilterItem {
       } else if (value === true) {
         element.setAttribute(`checked`, null);
       }
-
-      _checked = value;
-    };
-
-    this.isChecked = function () {
-      return _checked;
-    };
-
-    this.getElement = function () {
-      return _element || (_element = createElement(this.getTemplate()).firstChild);
-    };
-
-    this.removeElelement = function () {
-      _element = null;
     };
 
     this.getTemplate = function () {
       return `<div class="trip-filters__filter">
-      <input id="filter-${this.getName()}" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="${this.getName()}" ${this.isChecked() ? `checked` : ``} >
-      <label class="trip-filters__filter-label" for="filter-${this.getName()}">${this.getTitle()}</label>
+      <input id="filter-${name}" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="${name}" ${checked ? `checked` : ``} >
+      <label class="trip-filters__filter-label" for="filter-${name}">${title}</label>
       </div>`;
     };
   }
 }
 
-class Filter {
+class Filter extends AbstractComponent {
   constructor() {
-    let _element = null;
+    super();
+
     const _items = [
       new FilterItem(`everything`, `Everything`, true),
       new FilterItem(`future`, `Future`),
       new FilterItem(`past`, `Past`)];
 
-    _items[0].setChecked(true);
-
     this.getTemplate = function () {
-      return _items.map((item) => item.getTemplate()).join(``);
-    };
-
-    this.getElement = function () {
-      if (_element === null) {
-        _element = createElement(`<form class="trip-filters" action="#" method="get"></form>`).firstChild;
-
-        _items.map((item) => _element.append(item.getElement()));
-        _element.append(createElement(`<button class="visually-hidden" type="submit">Accept filter</button>`));
-      }
-      return _element;
-    };
-
-    this.removeElelement = function () {
-      _element = null;
+      return `<form class="trip-filters" action="#" method="get">
+      ${_items.map((item) => item.getTemplate()).join(``)}
+      <button class="visually-hidden" type="submit">Accept filter</button></form>`;
     };
   }
 }

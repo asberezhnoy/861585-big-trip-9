@@ -1,9 +1,10 @@
 import Trip from './trip';
-import {TimeStamp, createElement} from './utils';
+import {TimeStamp} from './utils';
+import AbstractComponent from './AbstractComponent';
 
-class TripInfo {
+class TripInfo extends AbstractComponent {
   constructor(trip) {
-    let _element = null;
+    super();
 
     if (!(trip instanceof Trip)) {
       throw new TypeError(`Incoming parameter is wrong`);
@@ -22,14 +23,6 @@ class TripInfo {
       }
 
       return trip.points[index];
-    };
-
-    this.removeElelment = function () {
-      _element = null;
-    };
-
-    this.getElement = function () {
-      return _element ? _element : (_element = createElement(this.getTemplate()).firstChild);
     };
 
     this.getTemplate = function () {
